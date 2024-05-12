@@ -1,4 +1,5 @@
-function searchCity(city) { //1st function for the city for API data retrieval
+function searchCity(city) {
+  //1st function for the city for API data retrieval
 
   let apiKey = "47c53bba2097318c33196010f07cot74";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
@@ -6,20 +7,51 @@ function searchCity(city) { //1st function for the city for API data retrieval
   axios.get(apiUrl).then(refreshWeather);
 }
 
-function handleSearchSubmit(event) { //function for the search bar to prevent blank search
+function handleSearchSubmit(event) {
+  //function for the search bar to prevent blank search
   event.preventDefault();
 
   let searchInput = document.querySelector("#search-input"); //this will target the form that will the user will input.
 
   searchCity(searchInput.value); // this is added for API function use
 }
-
 let searchFormElement = document.querySelector("#search-form-id"); //targets the search form
 searchFormElement.addEventListener("submit", handleSearchSubmit); //this will activate the button whenever the user clicks the search button
 
 searchCity("Paris"); //to default to this city once refreshed
 
-function refreshWeather(response) { //2nd function for the temperature for API data retrieval
+function displayForecast() {
+  //Create function to display forecast
+
+  let days = ["Tue", "Wed", "Thur", "Fri", "Sat","Sun"]; //create array of days data
+  let forecastHtml = "";
+
+  days.forEach(function (day) {
+    //this function is a loop function
+
+    forecastHtml =
+      forecastHtml +
+      `
+   <div class="weather-forecast-day">
+    <div class="weather-forecast-date">${day}</div>
+    <div class="weather-forecast-icon">🌤️</div>
+    <div class="weather-forecast-temperatures">
+    <div class="weather-forecast-temperature">
+    <strong>15º</strong>
+    </div>
+    <div class="weather-forecast-temperature">9º</div>
+    </div>
+    </div>
+    `;
+  });
+
+  let forecastElement = document.querySelector("#forecast");
+  forecastElement.innerHTML = forecastHtml;
+}
+displayForecast(); //call the function displayForecast to display the forecast value
+
+function refreshWeather(response) {
+  //2nd function for the temperature for API data retrieval
   let cityElement = document.querySelector("#city"); //to target the city variable make sure to add id
   let temperatureElement = document.querySelector("#weather-app-temp-value"); //targets the weather temperature value element with the id
   let temperature = response.data.temperature.current;
@@ -39,7 +71,8 @@ function refreshWeather(response) { //2nd function for the temperature for API d
   iconElement.innerHTML = `<img src="${response.data.condition.icon_url}" class="weather-app-icon">`; //this will change the icon and pull image from API
 }
 
-function formatDate(date) { //create this function to get better format of the time
+function formatDate(date) {
+  //create this function to get better format of the time
 
   let hours = date.getHours();
   let minutes = date.getMinutes();
