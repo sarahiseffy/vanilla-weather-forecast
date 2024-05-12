@@ -65,6 +65,7 @@ function handleSearchSubmit(event) {
 let searchFormElement = document.querySelector("#search-form-id"); //targets the search form
 searchFormElement.addEventListener("submit", handleSearchSubmit); //this will activate the button whenever the user clicks the search button
 
+
 function getForecast(city) {
   //function to get the API for forecast
 
@@ -74,30 +75,45 @@ function getForecast(city) {
   axios(apiUrl).then(displayForecast);
 }
 
+function formatDay(timestamp) {  //create this function to convert the day format instead of showing as timestamp
+
+  let date = new Date(timestamp * 1000);
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  return days[date.getDay()];
+}
+
 function displayForecast(response) {
   //Create function to display forecast
   console.log(response.data);
 
-  let days = ["Tue", "Wed", "Thur", "Fri", "Sat", "Sun"]; //create array of days data
+ 
   let forecastHtml = "";
 
-  days.forEach(function (day) {
+  response.data.daily.forEach(function (day, index) {
     //this function is a loop function
+
+    if (index < 5) {
 
     forecastHtml =
       forecastHtml +
+
       `
    <div class="weather-forecast-day">
-    <div class="weather-forecast-date">${day}</div>
-    <div class="weather-forecast-icon">🌤️</div>
+    <div class="weather-forecast-date">${formatDay(day.time)}
+    </div>
+    <div class="weather-forecast-icon">
+    <img src"${day.condition.icon_url}" />
+    </div>
     <div class="weather-forecast-temperatures">
     <div class="weather-forecast-temperature">
-    <strong>15º</strong>
+    <strong>${Math.round(day.temperature.maximum)}º</strong>
     </div>
-    <div class="weather-forecast-temperature">9º</div>
+    <div class="weather-forecast-temperature">${Math.round(day.temperature.minimum)}º</div>
     </div>
     </div>
     `;
+    }
   });
 
   let forecastElement = document.querySelector("#forecast");
