@@ -1,6 +1,7 @@
 body {
-  background-color: rgb(238, 231, 231);
+  background: linear-gradient(112.1deg, rgb(32, 38, 57) 11.4%, rgb(63, 76, 119) 70.2%);
   font-family: "Roboto";
+
 }
 
 .main-body {
@@ -100,8 +101,8 @@ main {
   margin-bottom: 10px;
 }
 
-.weather-forecast-icon {
-  font-size: 38px;
+.icon.url img {
+  font-size: 30px;
   text-align: center;
 }
 .weather-forecast-temperatures {

@@ -100,11 +100,12 @@ function displayForecast(response) {
 
       `
    <div class="weather-forecast-day">
+   
     <div class="weather-forecast-date">${formatDay(day.time)}
     </div>
 
     <img src="${day.condition.icon_url}" />
-    
+
     <div class="weather-forecast-temperatures">
     <div class="weather-forecast-temperature">
     <strong>${Math.round(day.temperature.maximum)}º</strong>
@@ -114,7 +115,7 @@ function displayForecast(response) {
     </div>
     `;
     }
-      console.log(day.condition.icon_url);
+
   });
 
 
@@ -122,4 +123,4 @@ function displayForecast(response) {
   forecastElement.innerHTML = forecastHtml;
 }
 
-searchCity("Paris"); //to default to this city once refreshed
+searchCity("Prague"); //to default to this city once refreshed
