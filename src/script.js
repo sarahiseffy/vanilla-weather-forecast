@@ -102,9 +102,9 @@ function displayForecast(response) {
    <div class="weather-forecast-day">
     <div class="weather-forecast-date">${formatDay(day.time)}
     </div>
-    <div class="weather-forecast-icon">
-    <img src"${day.condition.icon_url}" />
-    </div>
+
+    <img src="${day.condition.icon_url}" />
+    
     <div class="weather-forecast-temperatures">
     <div class="weather-forecast-temperature">
     <strong>${Math.round(day.temperature.maximum)}º</strong>
@@ -114,7 +114,9 @@ function displayForecast(response) {
     </div>
     `;
     }
+      console.log(day.condition.icon_url);
   });
+
 
   let forecastElement = document.querySelector("#forecast");
   forecastElement.innerHTML = forecastHtml;
